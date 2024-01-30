@@ -39,7 +39,6 @@ sniffer:               # 嗅探域名 可选配置
       ports: [443, 8443]
     HTTP:
       ports: [80, 8080-8880]
-      override-destination: true
     QUIC:
       ports: [443, 8443]
       
@@ -50,13 +49,13 @@ tun:                   # Tun 配置
                        # gvisor 通过在用户空间中实现网络协议栈,可以提供更高的安全性和隔离性,同时可以避免操作系统内核和用户空间之间的切换,从而在特定情况下具有更好的网络处理性能
                        # mixed 混合堆栈,tcp使用 system栈,udp使用 gvisor栈,使用体验可能相对更好
   dns-hijack: [any:53]            # dns劫持,一般设置为 any:53 即可, 即劫持所有53端口的udp流量
-# strict_route: true   # 将所有连接路由到tun来防止泄漏，但你的设备将无法其他设备被访问
+  strict_route: true   # 将所有连接路由到tun来防止泄漏，但你的设备将无法其他设备被访问
   auto-route: true     # 自动设置全局路由，可以自动将全局流量路由进入tun网卡。
   auto-detect-interface: true     # 自动识别出口网卡
         
 dns:
   enable: true             # 关闭将使用系统 DNS
-  ipv6: false              # IPV6解析开关；如果为false，将返回ipv6结果为空
+  ipv6: true              # IPV6解析开关；如果为false，将返回ipv6结果为空
   enhanced-mode: fake-ip   # 模式：redir-host或fake-ip
   listen: 0.0.0.0:53       # DNS监听地址
   fake-ip-range: 198.18.0.1/16    # Fake-IP解析地址池
